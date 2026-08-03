@@ -74,8 +74,8 @@ logging.getLogger().addHandler(json_handler)
 base_dir = os.path.dirname(__file__)
 
 app = FastAPI(
-    title="BugFalse AI Debugger",
-    description="AI-powered Python code debugger using Groq LLM",
+    title="TelAI Telugu Chat Web",
+    description="Telugu AI chat experience with debugging assistance",
     version="2.0.0"
 )
 
@@ -107,7 +107,7 @@ async def chat_page(request: Request):
 async def health():
     return {
         "status": "healthy",
-        "service": "BugFalse AI Debugger"
+        "service": "TelAI Telugu Chat Web"
     }
 
 @app.head("/status")

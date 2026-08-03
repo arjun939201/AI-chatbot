@@ -20,16 +20,16 @@ class ChatRequest(BaseModel):
 def generate_bot_reply(user_message: str) -> str:
     normalized = user_message.strip().lower()
     if not normalized:
-        return "Please type something so I can respond."
-    if "hello" in normalized or "hi" in normalized:
-        return "Hello! I am your chatbot. How can I help you today?"
-    if "help" in normalized:
-        return "I can keep track of our conversation and respond to simple questions."
-    if "name" in normalized:
-        return "I am a simple chatbot built with FastAPI."
-    if "time" in normalized:
-        return "I don't have a real clock, but I can keep our chat history for you."
-    return "That sounds interesting. Tell me more so I can help."
+        return "దయచేసి నాకు సమాధానం చెప్పడానికి ఏదో టైప్ చేయండి."
+    if "hello" in normalized or "hi" in normalized or "హలో" in normalized or "ఓపి" in normalized or "వైరా" in normalized:
+        return "హలో! నేను మీ TelAI తెలుగు చాట్ సహాయకుణం. నేను ఎలా సహాయం చేయగలను?"
+    if "help" in normalized or "సహాయం" in normalized or "సహాయం కావాలి" in normalized:
+        return "నేను మీ సంభాషణను గుర్తుంచుకోగలను మరియు సాధారణ ప్రశ్నలకు సమాధానం చెప్పగలను."
+    if "name" in normalized or "పేరు" in normalized:
+        return "నేను FastAPIతో నిర్మించిన ఒక సాధారణ తెలుగు చాట్ సహాయకుణం."
+    if "time" in normalized or "సమయం" in normalized:
+        return "నాకు నిజమైన గడియారం లేదు, కానీ నేను మీ చాట్ చరిత్రను జాగ్రత్తగా నిల్వ చేయగలను."
+    return "ఆ విషయం ఆసక్తికరంగా ఉంది. మరింత చెప్పండి, నేను సహాయం చేయగలను."
 
 
 # ==========================================

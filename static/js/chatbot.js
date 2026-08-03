@@ -23,12 +23,12 @@ async function clearHistory() {
 function renderHistory(history) {
   const container = document.getElementById('chatContainer');
   if (!history || history.length === 0) {
-    container.innerHTML = '<p>No messages yet. Send the first message below.</p>';
+    container.innerHTML = '<p>ఇంకా సందేశాలు లేవు. దిగువన మీ మొదటి సందేశాన్ని పంపండి.</p>';
     return;
   }
   container.innerHTML = history.map(entry => `
     <div class="message ${entry.role}">
-      <strong>${entry.role.charAt(0).toUpperCase() + entry.role.slice(1)}:</strong>
+      <strong>${entry.role === 'user' ? 'మీరు' : 'TelAI'}:</strong>
       <div>${entry.text}</div>
     </div>
   `).join('');
