@@ -11,7 +11,6 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi import Response
 
-from routes.debug import router as debug_router
 from routes.chatbot import router as chatbot_router
 
 # ==========================================
@@ -83,7 +82,6 @@ templates = Jinja2Templates(directory=os.path.join(base_dir, "templates"))
 app.mount("/static", StaticFiles(directory=os.path.join(base_dir, "static")), name="static")
 
 # Routers
-app.include_router(debug_router, prefix="/debug", tags=["Debug"])
 app.include_router(chatbot_router, prefix="/chatbot", tags=["Chatbot"])
 
 
