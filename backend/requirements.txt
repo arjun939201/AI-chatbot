@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+sqlalchemy>=1.4
+asyncpg
+jinja2
+requests
