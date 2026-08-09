@@ -4,3 +4,4 @@ python-dotenv
 sqlalchemy>=1.4
 asyncpg
 requests
+jinja2

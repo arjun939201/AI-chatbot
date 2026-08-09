@@ -1,0 +1,10 @@
+body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:0 }
+.app { display:flex; height:100vh }
+.sidebar { width:240px; background:#0b1b2b; color:#fff; padding:16px }
+.chat { flex:1; display:flex; flex-direction:column }
+.messages { flex:1; padding:16px; overflow:auto }
+.msg { margin-bottom:12px }
+.msg.user .text { background:#e6f1ff; padding:8px; border-radius:8px; display:inline-block }
+.msg.assistant .text { background:#f1f1f1; padding:8px; border-radius:8px; display:inline-block }
+.composer { display:flex; padding:12px; border-top:1px solid #eee }
+.composer input { flex:1; padding:8px; margin-right:8px }

@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Cookie, Depends, Response
+import secrets
+from fastapi import APIRouter, Cookie, Response, Depends
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -15,7 +16,7 @@ class AnonymousAuthResponse(BaseModel):
 
 async def get_or_create_anonymous_user(db: AsyncSession, identity_token: str | None):
     from sqlalchemy import select
-
+    
     if identity_token:
         query = select(AnonymousUser).where(AnonymousUser.identity_token == identity_token)
         result = await db.execute(query)
@@ -23,8 +24,6 @@ async def get_or_create_anonymous_user(db: AsyncSession, identity_token: str | N
         if user:
             return user
 
-    new_token = ""
-    import secrets
     new_token = secrets.token_urlsafe(32)
     user = AnonymousUser(identity_token=new_token)
     db.add(user)

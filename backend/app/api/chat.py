@@ -17,7 +17,7 @@ class ChatRequest(BaseModel):
 
 
 @router.post("/message")
-async def message(payload: ChatRequest, db: AsyncSession = Depends(get_db), anon_token: str | None = Header(default=None)):
+async def send_message(payload: ChatRequest, db: AsyncSession = Depends(get_db), anon_token: str | None = Header(default=None)):
     user = await _get_user(db, anon_token)
     if not user:
         return {"error": "Unauthorized"}

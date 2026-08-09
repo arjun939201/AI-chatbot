@@ -1,1 +1,1 @@
-# API package for Melimi Telugu AI backend
+# API router package for Melimi Telugu AI
