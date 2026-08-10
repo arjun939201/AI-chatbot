@@ -1,21 +1,18 @@
-import os
-
-from dotenv import load_dotenv
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-load_dotenv()
+class Settings(BaseSettings):
+    groq_token: str
+    groq_model: str
+    groq_url: str
+
+    tavily_api_key: str
+
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore",
+    )
 
 
-GROQ_TOKEN = os.getenv("GROQ_TOKEN")
-
-
-GROQ_URL = os.getenv(
-    "GROQ_URL",
-    "https://api.groq.com/openai/v1/chat/completions"
-)
-
-
-GROQ_MODEL = os.getenv(
-    "GROQ_MODEL",
-    "llama-3.3-70b-versatile"
-)
+settings = Settings()
