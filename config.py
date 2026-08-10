@@ -1,18 +1,66 @@
-from pydantic_settings import BaseSettings, SettingsConfigDict
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
-class Settings(BaseSettings):
-    groq_token: str
-    groq_model: str
-    groq_url: str
+def get_env_bool(name: str, default: bool = False) -> bool:
+    value = os.getenv(name)
 
-    tavily_api_key: str
+    if value is None:
+        return default
 
-    model_config = SettingsConfigDict(
-        env_file=".env",
-        env_file_encoding="utf-8",
-        extra="ignore",
+    return value.strip().lower() in ("1", "true", "yes")
+
+
+class Settings:
+    project_name: str = "Melimi Telugu AI"
+
+    debug: bool = get_env_bool("DEBUG", False)
+
+    port: int = int(
+        os.getenv("PORT", "5000")
     )
+
+    database_url: str = os.getenv(
+        "DATABASE_URL",
+        "postgresql+asyncpg://localhost/melimi"
+    )
+
+    groq_token: str = os.getenv(
+        "GROQ_TOKEN",
+        ""
+    )
+
+    groq_model: str = os.getenv(
+        "GROQ_MODEL",
+        "llama-3.3-70b-versatile"
+    )
+
+    groq_url: str = os.getenv(
+        "GROQ_URL",
+        "https://api.groq.com/openai/v1/chat/completions"
+    )
+
+    # Real-time web search
+    tavily_api_key: str = os.getenv(
+        "TAVILY_API_KEY",
+        ""
+    )
+
+    anon_session_secret: str = os.getenv(
+        "ANON_SESSION_SECRET",
+        "change-this-secret"
+    )
+
+    contributor_ids: list[str] = [
+        item.strip()
+        for item in os.getenv(
+            "CONTRIBUTOR_IDS",
+            ""
+        ).split(",")
+        if item.strip()
+    ]
 
 
 settings = Settings()
