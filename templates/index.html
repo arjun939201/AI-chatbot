@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -16,74 +15,205 @@
         rel="stylesheet"
         href="/static/css/style.css"
     >
-
 </head>
 
 <body>
 
 <div class="app">
 
-    <header class="header">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
 
-        <div class="logo">
-            TelAI
+        <div class="brand">
+            <div class="brand-icon">T</div>
+
+            <div>
+                <div class="brand-name">TelAI</div>
+                <div class="brand-subtitle">AI Assistant</div>
+            </div>
         </div>
+
 
         <button
             id="clearButton"
-            class="clear-button"
+            class="new-chat-button"
         >
-            New Chat
+            <span>＋</span>
+            New chat
         </button>
 
-    </header>
+
+        <div class="sidebar-section">
+
+            <div class="section-title">
+                TODAY
+            </div>
+
+            <div class="chat-item active">
+                <span class="chat-icon">◌</span>
+                <span>New conversation</span>
+            </div>
+
+        </div>
 
 
-    <main
-        id="chatContainer"
-        class="chat-container"
-    >
+        <div class="sidebar-bottom">
 
-        <div class="welcome">
+            <div class="status">
+                <span class="status-dot"></span>
+                <span>AI Online</span>
+            </div>
 
-            <h1>How can I help you?</h1>
+            <div class="powered">
+                Powered by Groq
+            </div>
 
-            <p>
-                Ask me anything.
-            </p>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+
+            <div class="mobile-brand">
+                <div class="brand-icon small">T</div>
+                <span>TelAI</span>
+            </div>
+
+            <div class="model-info">
+                <span class="model-name">TelAI</span>
+                <span class="model-badge">AI</span>
+            </div>
+
+            <button
+                id="mobileNewChat"
+                class="mobile-new-chat"
+            >
+                ＋
+            </button>
+
+        </header>
+
+
+        <!-- CHAT -->
+        <section
+            id="chatContainer"
+            class="chat-container"
+        >
+
+            <!-- WELCOME -->
+            <div class="welcome">
+
+                <div class="welcome-icon">
+                    T
+                </div>
+
+                <h1>
+                    How can I help you?
+                </h1>
+
+                <p>
+                    Ask questions, write code, learn something new,
+                    or just have a conversation.
+                </p>
+
+
+                <div class="suggestions">
+
+                    <button
+                        class="suggestion"
+                        data-message="Explain Python in simple words"
+                    >
+                        <span>⌘</span>
+                        Explain Python simply
+                    </button>
+
+                    <button
+                        class="suggestion"
+                        data-message="Help me learn programming"
+                    >
+                        <span>◇</span>
+                        Help me learn programming
+                    </button>
+
+                    <button
+                        class="suggestion"
+                        data-message="Write a professional resume summary"
+                    >
+                        <span>✦</span>
+                        Write something for me
+                    </button>
+
+                    <button
+                        class="suggestion"
+                        data-message="Tell me something interesting"
+                    >
+                        <span>◈</span>
+                        Something interesting
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- COMPOSER -->
+        <div class="composer-area">
+
+            <form
+                id="chatForm"
+                class="composer"
+            >
+
+                <textarea
+                    id="messageInput"
+                    placeholder="Message TelAI..."
+                    rows="1"
+                    autocomplete="off"
+                ></textarea>
+
+
+                <button
+                    type="submit"
+                    id="sendButton"
+                    aria-label="Send message"
+                >
+                    <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                    >
+                        <path
+                            d="M5 12H19M19 12L13 6M19 12L13 18"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                </button>
+
+            </form>
+
+
+            <div class="composer-footer">
+
+                <span>
+                    TelAI may make mistakes. Verify important information.
+                </span>
+
+            </div>
 
         </div>
 
     </main>
-
-
-    <div class="composer-wrapper">
-
-        <form
-            id="chatForm"
-            class="composer"
-        >
-
-            <textarea
-                id="messageInput"
-                placeholder="Message TelAI..."
-                rows="1"
-            ></textarea>
-
-            <button
-                type="submit"
-                id="sendButton"
-            >
-                ↑
-            </button>
-
-        </form>
-
-        <div class="footer-text">
-            TelAI can make mistakes. Check important information.
-        </div>
-
-    </div>
 
 </div>
 
