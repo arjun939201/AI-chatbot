@@ -2,9 +2,7 @@ import os
 
 from dotenv import load_dotenv
 
-
 load_dotenv()
-
 
 GROQ_TOKEN = os.getenv("GROQ_TOKEN")
 
