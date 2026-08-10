@@ -14,17 +14,23 @@ app = FastAPI(
     version="1.0.0"
 )
 
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 
 templates = Jinja2Templates(
     directory=os.path.join(BASE_DIR, "templates")
 )
 
+
 app.mount(
     "/static",
-    StaticFiles(directory=os.path.join(BASE_DIR, "static")),
+    StaticFiles(
+        directory=os.path.join(BASE_DIR, "static")
+    ),
     name="static"
 )
+
 
 app.include_router(
     chatbot_router,
@@ -35,6 +41,7 @@ app.include_router(
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
+
     return templates.TemplateResponse(
         request=request,
         name="index.html"
@@ -43,6 +50,7 @@ async def home(request: Request):
 
 @app.get("/health")
 async def health():
+
     return {
         "status": "healthy",
         "service": "TelAI"
@@ -50,6 +58,7 @@ async def health():
 
 
 if __name__ == "__main__":
+
     import uvicorn
 
     port = int(os.environ.get("PORT", 5000))
