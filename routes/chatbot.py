@@ -1,30 +1,153 @@
-from fastapi import APIRouter
-from pydantic import BaseModel
-
-from services.grok_chat import chat_with_grok
-
-
-router = APIRouter()
+const form = document.getElementById("chatForm");
+const input = document.getElementById("messageInput");
+const chatContainer = document.getElementById("chatContainer");
+const sendButton = document.getElementById("sendButton");
+const clearButton = document.getElementById("clearButton");
 
 
-class ChatRequest(BaseModel):
-    message: str
-    history: list = []
+let conversation = [];
 
 
-@router.post("/chat")
-async def chat(request: ChatRequest):
+function addMessage(role, content) {
 
-    if not request.message.strip():
-        return {
-            "reply": "Please enter a message."
+    const welcome = document.querySelector(".welcome");
+
+    if (welcome) {
+        welcome.remove();
+    }
+
+    const message = document.createElement("div");
+
+    message.className = `message ${role}`;
+
+    const messageContent = document.createElement("div");
+
+    messageContent.className = "message-content";
+
+    messageContent.textContent = content;
+
+    message.appendChild(messageContent);
+
+    chatContainer.appendChild(message);
+
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+
+    return messageContent;
+}
+
+
+async function sendMessage() {
+
+    const message = input.value.trim();
+
+    if (!message) {
+        return;
+    }
+
+    addMessage("user", message);
+
+    conversation.push({
+        role: "user",
+        content: message
+    });
+
+    input.value = "";
+
+    sendButton.disabled = true;
+
+    const thinkingMessage = addMessage(
+        "assistant",
+        "Thinking..."
+    );
+
+    try {
+
+        const response = await fetch("/api/chat", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                message: message,
+                history: conversation.slice(0, -1)
+            })
+
+        });
+
+
+        if (!response.ok) {
+            throw new Error("Request failed");
         }
 
-    reply = chat_with_grok(
-        request.message,
-        request.history
-    )
 
-    return {
-        "reply": reply
+        const data = await response.json();
+
+        thinkingMessage.textContent = data.reply;
+
+
+        conversation.push({
+            role: "assistant",
+            content: data.reply
+        });
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        thinkingMessage.textContent =
+            "Sorry, something went wrong. Please try again.";
+
+    } finally {
+
+        sendButton.disabled = false;
+
+        input.focus();
+
+        chatContainer.scrollTop =
+            chatContainer.scrollHeight;
     }
+}
+
+
+form.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    sendMessage();
+
+});
+
+
+input.addEventListener("keydown", function(event) {
+
+    if (
+        event.key === "Enter" &&
+        !event.shiftKey
+    ) {
+
+        event.preventDefault();
+
+        sendMessage();
+    }
+
+});
+
+
+clearButton.addEventListener("click", function() {
+
+    conversation = [];
+
+    chatContainer.innerHTML = `
+        <div class="welcome">
+            <h1>How can I help you?</h1>
+            <p>Ask me anything.</p>
+        </div>
+    `;
+
+    input.focus();
+
+});
