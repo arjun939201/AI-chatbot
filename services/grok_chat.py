@@ -4,22 +4,18 @@ from config import GROQ_TOKEN, GROQ_URL, GROQ_MODEL
 
 
 SYSTEM_PROMPT = """
-You are TelAI, a helpful and friendly AI assistant.
+You are TelAI, a helpful AI assistant.
 
-Answer the user's questions clearly and accurately.
-
-You can communicate in Telugu, English, and other languages.
+Answer clearly and accurately.
 Reply in the same language the user uses unless they request another language.
-
-Keep responses natural and useful.
-For coding questions, provide practical and correct solutions.
 """
 
 
 def chat_with_grok(message: str, history=None):
 
     if not GROQ_TOKEN:
-        return "AI service is not configured. Please check the GROQ_TOKEN environment variable."
+        print("ERROR: GROQ_TOKEN is missing")
+        return "GROQ_TOKEN is missing on the server."
 
     messages = [
         {
@@ -65,20 +61,18 @@ def chat_with_grok(message: str, history=None):
             timeout=60
         )
 
+        print("Groq status:", response.status_code)
+        print("Groq response:", response.text)
+
         response.raise_for_status()
 
         data = response.json()
 
         return data["choices"][0]["message"]["content"]
 
-    except requests.exceptions.RequestException as error:
-
-        print("Groq API error:", error)
-
-        return "Sorry, I couldn't connect to the AI service right now."
-
     except Exception as error:
 
-        print("Unexpected error:", error)
+        print("GROQ ERROR:", repr(error))
 
-        return "Something went wrong while generating the response."
+        return f"AI service error ({type(error).__name__}). Check Render logs."
+
