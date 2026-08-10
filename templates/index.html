@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -9,25 +10,37 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>TelAI</title>
+    <title>AI Chatbot</title>
 
-    <link rel="stylesheet" href="/static/css/styles.css">
+    <link
+        rel="stylesheet"
+        href="/static/css/styles.css"
+    >
+
 </head>
 
 <body>
 
 <div class="app">
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
 
         <div class="brand">
-            <div class="brand-icon">T</div>
+
+            <div class="brand-icon">
+                AI
+            </div>
 
             <div>
-                <div class="brand-name">TelAI</div>
-                <div class="brand-subtitle">AI Assistant</div>
+                <div class="brand-name">
+                    AI Chatbot
+                </div>
+
+                <div class="brand-subtitle">
+                    AI Assistant
+                </div>
             </div>
+
         </div>
 
 
@@ -47,8 +60,15 @@
             </div>
 
             <div class="chat-item active">
-                <span class="chat-icon">◌</span>
-                <span>New conversation</span>
+
+                <span class="chat-icon">
+                    ◌
+                </span>
+
+                <span>
+                    New conversation
+                </span>
+
             </div>
 
         </div>
@@ -57,8 +77,13 @@
         <div class="sidebar-bottom">
 
             <div class="status">
+
                 <span class="status-dot"></span>
-                <span>AI Online</span>
+
+                <span>
+                    AI Online
+                </span>
+
             </div>
 
             <div class="powered">
@@ -70,21 +95,35 @@
     </aside>
 
 
-    <!-- MAIN -->
     <main class="main">
 
-        <!-- TOP BAR -->
         <header class="topbar">
 
             <div class="mobile-brand">
-                <div class="brand-icon small">T</div>
-                <span>TelAI</span>
+
+                <div class="brand-icon small">
+                    AI
+                </div>
+
+                <span>
+                    AI Chatbot
+                </span>
+
             </div>
 
+
             <div class="model-info">
-                <span class="model-name">TelAI</span>
-                <span class="model-badge">AI</span>
+
+                <span class="model-name">
+                    AI Chatbot
+                </span>
+
+                <span class="model-badge">
+                    AI
+                </span>
+
             </div>
+
 
             <button
                 id="mobileNewChat"
@@ -96,26 +135,26 @@
         </header>
 
 
-        <!-- CHAT -->
         <section
             id="chatContainer"
             class="chat-container"
         >
 
-            <!-- WELCOME -->
             <div class="welcome">
 
                 <div class="welcome-icon">
-                    T
+                    AI
                 </div>
+
 
                 <h1>
                     How can I help you?
                 </h1>
 
+
                 <p>
                     Ask questions, write code, learn something new,
-                    or just have a conversation.
+                    or have a conversation.
                 </p>
 
 
@@ -125,32 +164,55 @@
                         class="suggestion"
                         data-message="Explain Python in simple words"
                     >
-                        <span>⌘</span>
+
+                        <span>
+                            ⌘
+                        </span>
+
                         Explain Python simply
+
                     </button>
+
 
                     <button
                         class="suggestion"
                         data-message="Help me learn programming"
                     >
-                        <span>◇</span>
+
+                        <span>
+                            ◇
+                        </span>
+
                         Help me learn programming
+
                     </button>
+
 
                     <button
                         class="suggestion"
                         data-message="Write a professional resume summary"
                     >
-                        <span>✦</span>
+
+                        <span>
+                            ✦
+                        </span>
+
                         Write something for me
+
                     </button>
+
 
                     <button
                         class="suggestion"
                         data-message="Tell me something interesting"
                     >
-                        <span>◈</span>
+
+                        <span>
+                            ◈
+                        </span>
+
                         Something interesting
+
                     </button>
 
                 </div>
@@ -160,7 +222,6 @@
         </section>
 
 
-        <!-- COMPOSER -->
         <div class="composer-area">
 
             <form
@@ -170,7 +231,7 @@
 
                 <textarea
                     id="messageInput"
-                    placeholder="Message TelAI..."
+                    placeholder="Message AI Chatbot..."
                     rows="1"
                     autocomplete="off"
                 ></textarea>
@@ -181,12 +242,14 @@
                     id="sendButton"
                     aria-label="Send message"
                 >
+
                     <svg
                         width="18"
                         height="18"
                         viewBox="0 0 24 24"
                         fill="none"
                     >
+
                         <path
                             d="M5 12H19M19 12L13 6M19 12L13 18"
                             stroke="currentColor"
@@ -194,7 +257,9 @@
                             stroke-linecap="round"
                             stroke-linejoin="round"
                         />
+
                     </svg>
+
                 </button>
 
             </form>
@@ -202,9 +267,8 @@
 
             <div class="composer-footer">
 
-                <span>
-                    TelAI may make mistakes. Verify important information.
-                </span>
+                AI Chatbot may make mistakes.
+                Verify important information.
 
             </div>
 
