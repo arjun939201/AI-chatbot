@@ -1,5 +1,9 @@
 fastapi
-uvicorn[standard]
-jinja2
+uvicorn
+sqlalchemy
+aiosqlite
+pydantic
+pydantic-settings
 requests
 python-dotenv
+tavily-python
