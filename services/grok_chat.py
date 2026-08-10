@@ -4,18 +4,20 @@ from config import GROQ_TOKEN, GROQ_URL, GROQ_MODEL
 
 
 SYSTEM_PROMPT = """
-You are TelAI, a helpful AI assistant.
+You are TelAI, a helpful and intelligent AI assistant.
 
-Answer clearly and accurately.
-Reply in the same language the user uses unless they request another language.
+Answer the user's questions clearly and accurately.
+
+Reply in the same language the user uses unless they ask for another language.
+
+For programming questions, provide practical and correct code.
 """
 
 
 def chat_with_grok(message: str, history=None):
 
     if not GROQ_TOKEN:
-        print("ERROR: GROQ_TOKEN is missing")
-        return "GROQ_TOKEN is missing on the server."
+        raise RuntimeError("GROQ_TOKEN is not configured")
 
     messages = [
         {
@@ -26,10 +28,11 @@ def chat_with_grok(message: str, history=None):
 
     if history:
         for item in history[-20:]:
+
             role = item.get("role")
             content = item.get("content")
 
-            if role in ["user", "assistant"] and content:
+            if role in ("user", "assistant") and content:
                 messages.append({
                     "role": role,
                     "content": content
@@ -52,27 +55,22 @@ def chat_with_grok(message: str, history=None):
         "Content-Type": "application/json"
     }
 
-    try:
+    response = requests.post(
+        GROQ_URL,
+        headers=headers,
+        json=payload,
+        timeout=60
+    )
 
-        response = requests.post(
-            GROQ_URL,
-            headers=headers,
-            json=payload,
-            timeout=60
+    if not response.ok:
+        print("GROQ STATUS:", response.status_code)
+        print("GROQ RESPONSE:", response.text)
+
+        raise RuntimeError(
+            f"Groq API returned HTTP {response.status_code}: "
+            f"{response.text}"
         )
 
-        print("Groq status:", response.status_code)
-        print("Groq response:", response.text)
+    data = response.json()
 
-        response.raise_for_status()
-
-        data = response.json()
-
-        return data["choices"][0]["message"]["content"]
-
-    except Exception as error:
-
-        print("GROQ ERROR:", repr(error))
-
-        return f"AI service error ({type(error).__name__}). Check Render logs."
-
+    return data["choices"][0]["message"]["content"]
