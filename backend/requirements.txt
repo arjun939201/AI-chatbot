@@ -1,7 +1,6 @@
 fastapi
 uvicorn[standard]
-python-dotenv
-sqlalchemy>=1.4
-asyncpg
-requests
 jinja2
+python-multipart
+requests
+python-dotenv
