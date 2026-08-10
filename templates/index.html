@@ -1,173 +1,95 @@
 <!DOCTYPE html>
-<html lang="te">
+<html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TelAI — తెలుగు చాట్</title>
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg: #07120f;
-      --panel: rgba(10, 24, 21, 0.94);
-      --panel-2: rgba(15, 33, 29, 0.95);
-      --border: #1f3d35;
-      --accent: #26f0b1;
-      --text: #f3fff8;
-      --muted: #8fb7a7;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: "Segoe UI", Tahoma, sans-serif;
-      background: linear-gradient(135deg, #07120f 0%, #0f2a23 100%);
-      color: var(--text);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 24px;
-    }
-    .chat-shell {
-      width: min(860px, 100%);
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      min-height: 720px;
-    }
-    .header {
-      padding: 20px 24px;
-      border-bottom: 1px solid var(--border);
-      background: var(--panel-2);
-    }
-    .header h1 { margin: 0 0 6px; font-size: 24px; font-weight: 700; }
-    .header p { margin: 0; color: var(--muted); font-size: 14px; }
-    .messages {
-      flex: 1;
-      padding: 20px 24px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      background: rgba(255,255,255,0.02);
-    }
-    .empty-state {
-      margin: auto 0;
-      text-align: center;
-      color: var(--muted);
-      padding: 24px;
-      border: 1px dashed var(--border);
-      border-radius: 16px;
-      background: rgba(255,255,255,0.03);
-    }
-    .message { display: flex; }
-    .message.user { justify-content: flex-end; }
-    .bubble {
-      max-width: 78%;
-      padding: 12px 14px;
-      border-radius: 16px;
-      line-height: 1.6;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-    .message.user .bubble {
-      background: linear-gradient(135deg, var(--accent), #47d4a1);
-      color: #042117;
-      border-bottom-right-radius: 6px;
-    }
-    .message.bot .bubble {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid var(--border);
-      color: var(--text);
-      border-bottom-left-radius: 6px;
-    }
-    .composer {
-      padding: 16px 20px 20px;
-      border-top: 1px solid var(--border);
-      background: var(--panel-2);
-    }
-    form { display: flex; gap: 10px; align-items: flex-end; }
-    textarea {
-      flex: 1;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      color: var(--text);
-      padding: 12px 14px;
-      font-size: 15px;
-      resize: none;
-      min-height: 52px;
-      outline: none;
-    }
-    textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(38, 240, 177, 0.12); }
-    button {
-      border: 0;
-      background: var(--accent);
-      color: #042117;
-      padding: 12px 16px;
-      border-radius: 14px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    button:hover { filter: brightness(1.05); }
-    .hint { margin-top: 8px; font-size: 12px; color: var(--muted); }
-    @media (max-width: 700px) {
-      body { padding: 0; }
-      .chat-shell { min-height: 100vh; border-radius: 0; }
-      .messages { padding: 16px; }
-      .composer { padding: 14px; }
-      .bubble { max-width: 92%; }
-    }
-  </style>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>TelAI</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/style.css"
+    >
+
 </head>
+
 <body>
-  <div class="chat-shell">
-    <div class="header">
-      <h1>TelAI</h1>
-      <p>మీకు సహాయం చేయడానికి సిద్ధంగా ఉన్న తెలుగు చాట్.</p>
-    </div>
 
-    <div class="messages" id="chatContainer">
-      {% if history %}
-        {% for message in history %}
-          <div class="message {{ message.role }}">
-            <div class="bubble">{{ message.text }}</div>
-          </div>
-        {% endfor %}
-      {% else %}
-        <div class="empty-state">
-          <p>ఇప్పుడే సందేశం పంపండి. నేను తెలుగు లో సమాధానం చెప్పగలను.</p>
+<div class="app">
+
+    <header class="header">
+
+        <div class="logo">
+            TelAI
         </div>
-      {% endif %}
+
+        <button
+            id="clearButton"
+            class="clear-button"
+        >
+            New Chat
+        </button>
+
+    </header>
+
+
+    <main
+        id="chatContainer"
+        class="chat-container"
+    >
+
+        <div class="welcome">
+
+            <h1>How can I help you?</h1>
+
+            <p>
+                Ask me anything.
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <div class="composer-wrapper">
+
+        <form
+            id="chatForm"
+            class="composer"
+        >
+
+            <textarea
+                id="messageInput"
+                placeholder="Message TelAI..."
+                rows="1"
+            ></textarea>
+
+            <button
+                type="submit"
+                id="sendButton"
+            >
+                ↑
+            </button>
+
+        </form>
+
+        <div class="footer-text">
+            TelAI can make mistakes. Check important information.
+        </div>
+
     </div>
 
-    <div class="composer">
-      <form id="chatForm">
-        <textarea id="userMessage" placeholder="మీ సందేశాన్ని టైప్ చేయండి..." rows="1"></textarea>
-        <button type="submit">పంపండి</button>
-      </form>
-      <div class="hint">Enter తో పంపండి, Shift+Enter తో కొత్త పంక్తి.</div>
-    </div>
-  </div>
+</div>
 
-  <script src="/static/js/chatbot.js"></script>
-  <script>
-    const input = document.getElementById('userMessage');
-    const form = document.getElementById('chatForm');
-    input.addEventListener('keydown', function (event) {
-      if (event.key === 'Enter' && !event.shiftKey) {
-        event.preventDefault();
-        sendMessage();
-      }
-    });
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();
-      sendMessage();
-    });
-    input.focus();
-  </script>
+
+<script src="/static/js/chatbot.js"></script>
+
 </body>
+
 </html>
